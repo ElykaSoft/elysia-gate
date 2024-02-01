@@ -71,25 +71,34 @@ public class WebSecurityConfig {
      **/
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        // 用户授权配置
         httpSecurity.authorizeRequests(
-                        authorize -> authorize
-                                .anyRequest()// 对所有请求开启授权保护
-                                .authenticated()// 需要身份认证才能访问，已认证的请求会被自动授权
-                )
-                .formLogin(form -> {// 前面的anyRequest()表示对所有请求开启授权保护，会让自定义登录页重定向到默认登录页，然后默认登录页重定向到自定义登录页，形成重定向循环
-                    form.loginPage("/login").permitAll()
-                            .usernameParameter("username")// 配置自定义的表单提交的用户名参数名，默认为username，即请求体中传到后端的参数名
-                            .passwordParameter("password")// 配置自定义的表单提交的密码参数名，默认为password，即请求体中传到后端的参数名
-                            .failureUrl("/login?error")// 登录失败时重定向的地址，默认为error
-                            .successHandler(new MyAuthenticationSuccessHandler())// 登录成功认证后的处理逻辑，默认是AuthenticationSuccessHandler接口中的success方法处理，这里通过自定义的MyAuthenticationSuccessHandler类实现接口重写success方法处理
-                            .failureHandler(new MyAuthenticationFailureHandler())// 登录失败认证后的处理逻辑，默认是AuthenticationFailureHandler接口中的failure方法处理，这里通过自定义的MyAuthenticationFailureHandler类实现接口重写failure方法处理
-                    ;// permitAll()表示允许所有人访问登录页，防止重定向循环
-                });// 使用表单授权方式，不使用默认登录页配置，使用自定义的登录页
+                authorize -> authorize
+                        .anyRequest()// 对所有请求开启授权保护
+                        .authenticated()// 需要身份认证才能访问，已认证的请求会被自动授权
+        );
+
+        // 用户登录配置
+        httpSecurity.formLogin(form -> {// 前面的anyRequest()表示对所有请求开启授权保护，会让自定义登录页重定向到默认登录页，然后默认登录页重定向到自定义登录页，形成重定向循环
+            form.loginPage("/login").permitAll()
+                    .usernameParameter("username")// 配置自定义的表单提交的用户名参数名，默认为username，即请求体中传到后端的参数名
+                    .passwordParameter("password")// 配置自定义的表单提交的密码参数名，默认为password，即请求体中传到后端的参数名
+                    .failureUrl("/login?error")// 登录失败时重定向的地址，默认为error
+//                    .successHandler(new MyAuthenticationSuccessHandler())// 登录成功认证后的处理逻辑，默认是AuthenticationSuccessHandler接口中的success方法处理，这里通过自定义的MyAuthenticationSuccessHandler类实现接口重写success方法处理
+                    .failureHandler(new MyAuthenticationFailureHandler())// 登录失败认证后的处理逻辑，默认是AuthenticationFailureHandler接口中的failure方法处理，这里通过自定义的MyAuthenticationFailureHandler类实现接口重写failure方法处理
+            ;// permitAll()表示允许所有人访问登录页，防止重定向循环
+        });// 使用表单授权方式，不使用默认登录页配置，使用自定义的登录页
 //                .formLogin(withDefaults());// 使用表单授权方式
 //                .httpBasic(withDefaults());// 使用基本授权方式
 
+        // 用户登出配置
+        httpSecurity.logout(logout -> {
+            logout.logoutSuccessHandler(new MyLogoutSuccessHandler());// 用户登出账号成功后的处理逻辑，默认是LogoutSuccessHandler接口中的onLogoutSuccess方法处理，这里通过自定义的MyLogoutSuccessHandler类实现接口重写onLogoutSuccess方法处理
+        });
+
+        // 关闭csrf攻击防御
 //        httpSecurity.csrf().disable();
-        httpSecurity.csrf(csrf -> csrf.disable());// 关闭csrf攻击防御
+        httpSecurity.csrf(csrf -> csrf.disable());
         return httpSecurity.build();
     }
 }
