@@ -1,0 +1,21 @@
+server:
+  port: 8990
+  servlet:
+    context-path: /elysia
+spring:
+  profiles:
+    default: local
+  datasource:
+    url: jdbc:mysql://${elysia.db.host}/elysia
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${elysia.db.username}
+    password: ${elysia.db.password}
+    type: com.alibaba.druid.pool.DruidDataSource
+  security:
+    user:
+      name: asdf
+      password: qwer
+mybatis-plus:
+  configuration:
+#    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
