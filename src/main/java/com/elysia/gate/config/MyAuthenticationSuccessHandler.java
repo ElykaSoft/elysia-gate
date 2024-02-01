@@ -19,10 +19,20 @@ import java.util.Map;
  * @BelongsPackage: com.elysia.gate.config
  * @Author: ElysiaKafka
  * @CreateTime: 2024-02-01  21:46:41
- * @Description: TODO
+ * @Description: 登录成功处理类
  * @Version: 1.0
  */
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+    /**
+     * @description: 登录成功处理
+     * @description: 对返回的结果集进行JSON转换，返回给前端页面做进一步处理
+     * @description: 添加响应头
+     * @author: ElysiaKafka
+     * @date: 2024/2/1 22:00
+     * @param: request
+     * @param: response
+     * @param: authentication
+     **/
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         Object principal = authentication.getPrincipal();// 获取用户身份信息
