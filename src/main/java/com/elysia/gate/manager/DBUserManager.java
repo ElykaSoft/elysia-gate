@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.elysia.common.constants.ActStatusEnum;
 import com.elysia.gate.mapper.ElysiaUserMapper;
 import com.elysia.gate.pojo.dao.ElysiaUser;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -26,6 +28,7 @@ import java.util.Collection;
  * @Version: 1.0
  */
 @Component
+@Slf4j
 public class DBUserManager implements UserDetailsManager, UserDetailsPasswordService {
     @Resource
     private ElysiaUserMapper elysiaUserMapper;
@@ -43,11 +46,16 @@ public class DBUserManager implements UserDetailsManager, UserDetailsPasswordSer
      **/
     @Override
     public void createUser(UserDetails user) {
-        ElysiaUser elysiaUser = new ElysiaUser();
-        elysiaUser.setUsername(user.getUsername());
-        elysiaUser.setPassword(user.getPassword());
-        elysiaUser.setStatus(ActStatusEnum.STATUS_NORMAL.getCode());
-        elysiaUserMapper.insert(elysiaUser);
+        try {
+            ElysiaUser elysiaUser = new ElysiaUser();
+            elysiaUser.setUsername(user.getUsername());
+            elysiaUser.setPassword(user.getPassword());
+            elysiaUser.setStatus(ActStatusEnum.STATUS_NORMAL.getCode());
+            elysiaUserMapper.insert(elysiaUser);
+        } catch (Exception e) {
+            log.error("elysia_user新增用户失败，错误信息：" + ExceptionUtils.getStackTrace(e));
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

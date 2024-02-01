@@ -69,7 +69,7 @@ public class WebSecurityConfig {
      * @param: httpSecurity
      * @return: org.springframework.security.web.SecurityFilterChain
      **/
-//    @Bean
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests(
                         authorize -> authorize
@@ -78,6 +78,9 @@ public class WebSecurityConfig {
                 )
                 .formLogin(withDefaults());// 使用表单授权方式
 //                .httpBasic(withDefaults());// 使用基本授权方式
+
+//        httpSecurity.csrf().disable();
+        httpSecurity.csrf(csrf->csrf.disable());// 关闭csrf攻击防御
         return httpSecurity.build();
     }
 }

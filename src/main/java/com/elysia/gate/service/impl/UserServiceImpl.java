@@ -101,11 +101,16 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Result<ElysiaUser> registerWithUserDetails(ElysiaUser elysiaUser) {
-        User user = (User) User.withDefaultPasswordEncoder()
-                .username(elysiaUser.getUsername())
-                .password(elysiaUser.getPassword())
-                .build();
-        dbUserManager.createUser(user);
-        return Result.returnSuccess(elysiaUser);
+        try {
+            User user = (User) User.withDefaultPasswordEncoder()
+                    .username(elysiaUser.getUsername())
+                    .password(elysiaUser.getPassword())
+                    .build();
+            dbUserManager.createUser(user);
+            return Result.returnSuccess(elysiaUser);
+        } catch (Exception e) {
+            log.error("注册失败！报错信息：{}", ExceptionUtils.getStackTrace(e));
+            return Result.returnFail("10001002", "注册失败，用户已存在！");
+        }
     }
 }
