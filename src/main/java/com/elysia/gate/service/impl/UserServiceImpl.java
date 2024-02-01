@@ -12,10 +12,13 @@ import com.elysia.gate.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -102,9 +105,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Result<ElysiaUser> registerWithUserDetails(ElysiaUser elysiaUser) {
         try {
+            Collection<GrantedAuthority> elysiaUserAuthorities = new ArrayList<>();
             User user = (User) User.withDefaultPasswordEncoder()
                     .username(elysiaUser.getUsername())
                     .password(elysiaUser.getPassword())
+                    .authorities(elysiaUserAuthorities)
                     .build();
             dbUserManager.createUser(user);
             return Result.returnSuccess(elysiaUser);
