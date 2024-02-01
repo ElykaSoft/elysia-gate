@@ -96,9 +96,13 @@ public class WebSecurityConfig {
             logout.logoutSuccessHandler(new MyLogoutSuccessHandler());// 用户登出账号成功后的处理逻辑，默认是LogoutSuccessHandler接口中的onLogoutSuccess方法处理，这里通过自定义的MyLogoutSuccessHandler类实现接口重写onLogoutSuccess方法处理
         });
 
+        // 用户未认证时的异常处理
         httpSecurity.exceptionHandling(exception -> {
             exception.authenticationEntryPoint(new MyAuthenticationEntryPoint());// 请求未认证的情况下，自定义的异常处理逻辑，默认是AuthenticationEntryPoint接口中的commence方法处理，这里通过自定义的MyAuthenticationEntryPoint类实现接口重写commence方法处理
         });
+
+        // 跨域配置
+        httpSecurity.cors(withDefaults());
 
         // 关闭csrf攻击防御
 //        httpSecurity.csrf().disable();
