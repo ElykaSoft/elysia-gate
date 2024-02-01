@@ -18,6 +18,15 @@ spring 6
 spring-boot 3.2.2
 spring-security 6.2.1
 thymeleaf 3.1.2.RELEASE
+spring-cloud-alibaba-nacos-discovery
+spring-cloud-alibaba-nacos-config
+spring-cloud-alibaba-sentinel
+spring-cloud-alibaba-seata
+spring-cloud-ribbon
+spring-cloud-openFeign
+spring-cloud-gateway
+rocketmq
+redis
 ```
 
 ### 未整合：
