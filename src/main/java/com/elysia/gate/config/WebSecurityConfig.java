@@ -76,11 +76,14 @@ public class WebSecurityConfig {
                                 .anyRequest()// 对所有请求开启授权保护
                                 .authenticated()// 需要身份认证才能访问，已认证的请求会被自动授权
                 )
-                .formLogin(withDefaults());// 使用表单授权方式
+                .formLogin(form -> {// 前面的anyRequest()表示对所有请求开启授权保护，会让自定义登录页重定向到默认登录页，然后默认登录页重定向到自定义登录页，形成重定向循环
+                    form.loginPage("/login").permitAll();// permitAll()表示允许所有人访问登录页，防止重定向循环
+                });// 使用表单授权方式，不使用默认登录页配置，使用自定义的登录页
+//                .formLogin(withDefaults());// 使用表单授权方式
 //                .httpBasic(withDefaults());// 使用基本授权方式
 
 //        httpSecurity.csrf().disable();
-        httpSecurity.csrf(csrf->csrf.disable());// 关闭csrf攻击防御
+        httpSecurity.csrf(csrf -> csrf.disable());// 关闭csrf攻击防御
         return httpSecurity.build();
     }
 }
