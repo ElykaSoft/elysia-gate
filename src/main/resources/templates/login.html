@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -27,6 +26,10 @@
                         <div class="form-group">
                             <label for="password">密码:</label>
                             <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <!-- Display error message if login attempt fails -->
+                        <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                            错误的用户名或密码！
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">登录</button>
                     </form>
