@@ -1,6 +1,7 @@
 package com.elysia.gate.manager;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.elysia.common.constants.ActStatusEnum;
 import com.elysia.gate.mapper.ElysiaUserMapper;
 import com.elysia.gate.pojo.dao.ElysiaUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,19 @@ public class DBUserManager implements UserDetailsManager, UserDetailsPasswordSer
         return null;
     }
 
+    /**
+     * @description: 创建用户
+     * @author: ElysiaKafka
+     * @date: 2024/2/1 17:47
+     * @param: user
+     **/
     @Override
     public void createUser(UserDetails user) {
-
+        ElysiaUser elysiaUser = new ElysiaUser();
+        elysiaUser.setUsername(user.getUsername());
+        elysiaUser.setPassword(user.getPassword());
+        elysiaUser.setStatus(ActStatusEnum.STATUS_NORMAL.getCode());
+        elysiaUserMapper.insert(elysiaUser);
     }
 
     @Override

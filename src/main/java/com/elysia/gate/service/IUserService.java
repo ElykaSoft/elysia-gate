@@ -89,4 +89,6 @@ public interface IUserService {
      * @return: com.elysia.common.pojo.common.Result<com.elysia.common.pojo.dao.ElysiaUserInfo>
      **/
     Result<ElysiaUserInfo> addUserInfo(ElysiaUserInfo elysiaUserInfo);
+
+    Result<ElysiaUser> registerWithUserDetails(ElysiaUser elysiaUser);
 }

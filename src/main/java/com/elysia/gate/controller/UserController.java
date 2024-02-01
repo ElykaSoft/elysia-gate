@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -52,9 +54,9 @@ public class UserController {
         }
     }
 
-    @PostMapping("/register")
+    @PostMapping("/registerByForm")
     @Transactional
-    public Result register(String username, String password, String email) {
+    public Result registerByForm(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email) {
         try {
             ElysiaUser elysiaUser = new ElysiaUser().builder()
                     .username(username)
@@ -85,6 +87,15 @@ public class UserController {
             return Result.returnFail(e.getErrorCode(), e.getErrorInfo());
         } catch (ServiceUnknownException e) {
             return Result.returnUnknown(e.getErrorCode(), e.getErrorInfo());
+        } catch (Exception e) {
+            return Result.returnUnknown("99999999", ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+    @PostMapping("/register")
+    public Result register(@RequestBody ElysiaUser elysiaUser) {
+        try {
+            return iUserService.registerWithUserDetails(elysiaUser);
         } catch (Exception e) {
             return Result.returnUnknown("99999999", ExceptionUtils.getStackTrace(e));
         }

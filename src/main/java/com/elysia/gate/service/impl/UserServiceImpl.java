@@ -2,6 +2,8 @@ package com.elysia.gate.service.impl;
 
 import com.elysia.common.exception.ServiceFailException;
 import com.elysia.common.pojo.common.Result;
+import com.elysia.gate.manager.DBUserManager;
+import com.elysia.gate.manager.PasswordEncodeManager;
 import com.elysia.gate.mapper.ElysiaUserInfoMapper;
 import com.elysia.gate.mapper.ElysiaUserMapper;
 import com.elysia.gate.pojo.dao.ElysiaUser;
@@ -10,8 +12,10 @@ import com.elysia.gate.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +34,11 @@ public class UserServiceImpl implements IUserService {
     private ElysiaUserMapper elysiaUserMapper;
     @Autowired
     private ElysiaUserInfoMapper elysiaUserInfoMapper;
+
+    @Resource
+    private PasswordEncodeManager passwordEncodeManager;
+    @Resource
+    private DBUserManager dbUserManager;
 
     @Override
     public Result<ElysiaUser> register(ElysiaUser elysiaUser) {
@@ -88,5 +97,15 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Result<ElysiaUserInfo> addUserInfo(ElysiaUserInfo elysiaUserInfo) {
         return null;
+    }
+
+    @Override
+    public Result<ElysiaUser> registerWithUserDetails(ElysiaUser elysiaUser) {
+        User user = (User) User.withDefaultPasswordEncoder()
+                .username(elysiaUser.getUsername())
+                .password(elysiaUser.getPassword())
+                .build();
+        dbUserManager.createUser(user);
+        return Result.returnSuccess(elysiaUser);
     }
 }
