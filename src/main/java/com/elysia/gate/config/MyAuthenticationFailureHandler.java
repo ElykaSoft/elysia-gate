@@ -37,7 +37,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
         String localizedMessage = exception.getLocalizedMessage();
 
         Map result = new HashMap();
-        result.put("code", HttpStatusEnum.FORBIDDEN);// 响应状态码403表示登录失败禁止访问
+        result.put("code", HttpStatusEnum.FORBIDDEN.getCode());// 响应状态码403表示登录失败禁止访问
         result.put("message", localizedMessage);// 响应信息
 
         // 请求结果转换为json字符串

@@ -24,7 +24,7 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         Map result = new HashMap();
-        result.put("code", HttpStatusEnum.OK);// 响应状态码200表示成功
+        result.put("code", HttpStatusEnum.OK.getCode());// 响应状态码200表示成功
         result.put("message", "登出成功");// 响应信息
 
         // 请求结果转换为json字符串

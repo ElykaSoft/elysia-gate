@@ -24,7 +24,7 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         Map result = new HashMap();
-        result.put("code", HttpStatusEnum.FORBIDDEN);// 响应状态码403拒绝未授权的访问
+        result.put("code", HttpStatusEnum.FORBIDDEN.getCode());// 响应状态码403拒绝未授权的访问
         result.put("message", "没有权限");// 响应信息
 
         // 请求结果转换为json字符串

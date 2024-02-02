@@ -41,7 +41,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 //        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();// 获取用户权限信息
 
         Map result = new HashMap();
-        result.put("code", HttpStatusEnum.OK);// 响应状态码200表示成功
+        result.put("code", HttpStatusEnum.OK.getCode());// 响应状态码200表示成功
         result.put("message", "登录成功");// 响应信息
         result.put("data", principal);// 响应数据
 
