@@ -101,6 +101,7 @@ public class WebSecurityConfig {
         // 用户未认证时的异常处理
         httpSecurity.exceptionHandling(exception -> {
             exception.authenticationEntryPoint(new MyAuthenticationEntryPoint());// 请求未认证的情况下，自定义的异常处理逻辑，默认是AuthenticationEntryPoint接口中的commence方法处理，这里通过自定义的MyAuthenticationEntryPoint类实现接口重写commence方法处理
+            exception.accessDeniedHandler(new MyAccessDeniedHandler());// 请求未授权的情况下，自定义的异常处理逻辑，默认是AccessDeniedHandler接口中的handle方法处理，这里通过自定义的MyAccessDeniedHandler类实现接口重写handle方法处理
         });
 
         // 跨域配置

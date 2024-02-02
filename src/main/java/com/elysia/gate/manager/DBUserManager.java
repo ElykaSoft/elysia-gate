@@ -97,10 +97,10 @@ public class DBUserManager implements UserDetailsManager, UserDetailsPasswordSer
             elysiaUserAuthorities.add(new GrantedAuthority() {
                 @Override
                 public String getAuthority() {
-                    return "USER_QUERY";
+                    return "USER_ADD";
                 }
             });
-            elysiaUserAuthorities.add(() -> "USER_ADD");
+//            elysiaUserAuthorities.add(() -> "USER_QUERY");
             boolean isEnable = elysiaUser.getStatus() == 1 ? true : false;
             return new User(
                     elysiaUser.getUsername(),
