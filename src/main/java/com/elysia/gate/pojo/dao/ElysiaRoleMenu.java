@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ElysiaRoleMenu extends BaseDao {
-    private String id;// 角色id
+    private Long id;// 角色id
     private String menuId;// 关联菜单id
     private String createUser;// 创建用户
     private String createDate;// 创建日期

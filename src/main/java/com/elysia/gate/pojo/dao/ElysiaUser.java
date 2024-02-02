@@ -28,7 +28,7 @@ import lombok.ToString;
 @TableName("elysia_user")
 public class ElysiaUser /*extends BaseDao*/ {
     @TableId(value = "id", type = IdType.AUTO)// 自增主键
-    private Integer id;// ID
+    private Long id;// ID
     private String username;// 用户名
     private String password;// 用户密码
     private Integer status;// 用户账号状态

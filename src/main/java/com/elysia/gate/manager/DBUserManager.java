@@ -94,6 +94,13 @@ public class DBUserManager implements UserDetailsManager, UserDetailsPasswordSer
             throw new UsernameNotFoundException(username + "用户不存在");
         } else {
             Collection<GrantedAuthority> elysiaUserAuthorities = new ArrayList<>();
+            elysiaUserAuthorities.add(new GrantedAuthority() {
+                @Override
+                public String getAuthority() {
+                    return "USER_QUERY";
+                }
+            });
+            elysiaUserAuthorities.add(() -> "USER_ADD");
             boolean isEnable = elysiaUser.getStatus() == 1 ? true : false;
             return new User(
                     elysiaUser.getUsername(),

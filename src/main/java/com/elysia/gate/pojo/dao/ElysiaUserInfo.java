@@ -31,7 +31,7 @@ public class ElysiaUserInfo extends BaseDao {
      * @description: 用户ID
      **/
     @TableId(value = "id",type = IdType.AUTO)// 主键自增
-    private Integer id;
+    private Long id;
     /**
      * @description: 用户姓氏
      **/

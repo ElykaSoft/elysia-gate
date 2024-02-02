@@ -74,6 +74,8 @@ public class WebSecurityConfig {
         // 用户授权配置
         httpSecurity.authorizeRequests(
                 authorize -> authorize
+                        .requestMatchers("/user/getList").hasAuthority("USER_QUERY")// 添加权限-资源访问授权
+                        .requestMatchers("/user/register").hasAuthority("USER_ADD")// 添加权限-资源访问授权
                         .anyRequest()// 对所有请求开启授权保护
                         .authenticated()// 需要身份认证才能访问，已认证的请求会被自动授权
         );
