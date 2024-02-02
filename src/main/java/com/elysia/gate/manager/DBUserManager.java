@@ -117,7 +117,7 @@ public class DBUserManager implements UserDetailsManager, UserDetailsPasswordSer
                     .disabled(elysiaUser.getStatus() != 1 ? true : false)// 用户是否可用
                     .credentialsExpired(false)// 用户凭证是否过期
                     .accountLocked(false)// 用户是否锁定
-                    .roles("ADMIN")// 用户角色
+                    .roles("USER")// 用户角色
                     .build();
             return user;
         }

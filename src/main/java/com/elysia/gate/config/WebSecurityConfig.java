@@ -4,6 +4,7 @@ import com.elysia.gate.manager.DBUserManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +25,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
  */
 @Configuration // 配置类注解
 //@EnableWebSecurity // 开启SpringSecurity的自定义配置（在Springboot项目中可以省略此注解）
+@EnableMethodSecurity // 开启方法安全基于方法授权
 public class WebSecurityConfig {
     @Value("${spring.security.user.name}")
     private String username;
@@ -76,7 +78,7 @@ public class WebSecurityConfig {
                 authorize -> authorize
 //                        .requestMatchers("/user/getList").hasAuthority("USER_QUERY")// 添加权限-资源访问授权
 //                        .requestMatchers("/user/register").hasAuthority("USER_ADD")// 添加权限-资源访问授权
-                        .requestMatchers("/user/**").hasRole("ADMIN")// 添加权限-资源访问授权
+//                        .requestMatchers("/user/**").hasRole("ADMIN")// 添加权限-资源访问授权
                         .anyRequest()// 对所有请求开启授权保护
                         .authenticated()// 需要身份认证才能访问，已认证的请求会被自动授权
         );
