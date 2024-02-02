@@ -1,6 +1,7 @@
 package com.elysia.gate.config;
 
 import com.alibaba.fastjson2.JSON;
+import com.elysia.common.constants.HttpStatusEnum;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,7 +37,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
         String localizedMessage = exception.getLocalizedMessage();
 
         Map result = new HashMap();
-        result.put("code", 403);// 响应状态码403表示登录失败禁止访问
+        result.put("code", HttpStatusEnum.FORBIDDEN);// 响应状态码403表示登录失败禁止访问
         result.put("message", localizedMessage);// 响应信息
 
         // 请求结果转换为json字符串
