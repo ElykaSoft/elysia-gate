@@ -3,10 +3,9 @@ package com.elysia.gate.config;
 import com.alibaba.fastjson2.JSON;
 import com.elysia.common.constants.HttpStatusEnum;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.session.SessionInformationExpiredEvent;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,13 +15,13 @@ import java.util.Map;
  * @BelongsProject: elysia-gate
  * @BelongsPackage: com.elysia.gate.config
  * @Author: ElysiaKafka
- * @CreateTime: 2024-02-01  22:12:20
- * @Description: 登出成功处理类
+ * @CreateTime: 2024-02-01  23:41:15
+ * @Description: 自定义Session会话并发处理
  * @Version: 1.0
  */
-public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
+public class MySessionInformationExpiredStrategy implements SessionInformationExpiredStrategy {
     @Override
-    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException, ServletException {
         Map result = new HashMap();
         result.put("code", HttpStatusEnum.OK);// 响应状态码200表示成功
         result.put("message", "登出成功");// 响应信息
@@ -31,6 +30,7 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
         String jsonResult = JSON.toJSONString(result);
 
         // 响应json数据
+        HttpServletResponse response = event.getResponse();
         response.setContentType("application/json;charset=utf-8");// 设置响应头
         response.getWriter().println(jsonResult);// 响应json数据
     }

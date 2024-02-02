@@ -104,6 +104,11 @@ public class WebSecurityConfig {
         // 跨域配置
         httpSecurity.cors(withDefaults());
 
+        // session管理，对于同一用户在多个地方同时登录时，会将其他地方的登录状态关闭
+        httpSecurity.sessionManagement(session -> {
+            session.maximumSessions(1).expiredSessionStrategy(new MySessionInformationExpiredStrategy());
+        });
+
         // 关闭csrf攻击防御
 //        httpSecurity.csrf().disable();
         httpSecurity.csrf(csrf -> csrf.disable());

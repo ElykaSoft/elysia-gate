@@ -1,6 +1,7 @@
 package com.elysia.gate.config;
 
 import com.alibaba.fastjson2.JSON;
+import com.elysia.common.constants.HttpStatusEnum;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,7 +41,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 //        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();// 获取用户权限信息
 
         Map result = new HashMap();
-        result.put("code", 200);// 响应状态码200表示成功
+        result.put("code", HttpStatusEnum.OK);// 响应状态码200表示成功
         result.put("message", "登录成功");// 响应信息
         result.put("data", principal);// 响应数据
 
