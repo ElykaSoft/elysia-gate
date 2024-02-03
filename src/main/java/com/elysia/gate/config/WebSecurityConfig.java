@@ -86,7 +86,7 @@ public class WebSecurityConfig {
 
         // 用户登录配置
         httpSecurity.formLogin(form -> {// 前面的anyRequest()表示对所有请求开启授权保护，会让自定义登录页重定向到默认登录页，然后默认登录页重定向到自定义登录页，形成重定向循环
-            form.loginPage("/login").permitAll()
+            form.loginPage("/login").permitAll().loginPage("/oauthGithub").permitAll()
                     .usernameParameter("username")// 配置自定义的表单提交的用户名参数名，默认为username，即请求体中传到后端的参数名
                     .passwordParameter("password")// 配置自定义的表单提交的密码参数名，默认为password，即请求体中传到后端的参数名
                     .failureUrl("/login?error")// 登录失败时重定向的地址，默认为error

@@ -36,9 +36,10 @@ Client secrets：9e3339b7e56baea091deb19f41b14d7903b0b27d
 ```
 jdk 17
 spring 6
-spring-boot 3.2.2
+spring-boot 3.0.13
 spring-security 6.2.1
 thymeleaf 3.1.2.RELEASE
+spring-boot-starter-oauth2-client
 spring-cloud-alibaba-nacos-discovery
 spring-cloud-alibaba-nacos-config
 spring-cloud-alibaba-sentinel
@@ -62,5 +63,5 @@ docker-compose
 
 ### 未来计划：
 ```
-oauth2
+……
 ```
