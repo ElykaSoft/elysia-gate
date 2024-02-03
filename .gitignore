@@ -33,5 +33,10 @@ build/
 ### VS Code ###
 .vscode/
 
+### maven ###
+.mvn
+mvnw
+mvnw.cmd
+
 ### obsidian ###
 .obsidian
