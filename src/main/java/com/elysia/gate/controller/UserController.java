@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,8 @@ public class UserController {
 //    private RestTemplate restTemplate;
 
     @GetMapping("/getList")
+//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyAuthority('USER_SELECT')")
     public Result<List<ElysiaUser>> getList(String queryParams) {
         try {
             Map<String, Object> inputParams = new HashMap<>();
@@ -51,6 +54,27 @@ public class UserController {
             return iUserService.queryUserList(inputParams);
         } catch (Exception e) {
             return Result.returnUnknown("99999999", ExceptionUtils.getStackTrace(e), null);
+        }
+    }
+
+    /**
+     * @description: 用户注册
+     * @description: @PreAuthorize注解表示在方法调用之前，先进行用户的角色权限校验
+     * @description: hasRole('ADMIN')表示当前用户角色必须是‘ADMIN’才能调用该方法
+     * @description: authentication.name=='admin'表示当前用户账号必须是‘admin’才能调用该方法
+     * @description: hasAnyAuthority('USER_SELECT')表示当前用户必须有赋权'USER_SELECT'权限才可以调用该方法
+     * @author: ElysiaKafka
+     * @date: 2024/2/3 0:08
+     * @param: elysiaUser
+     * @return: com.elysia.common.pojo.common.Result
+     **/
+    @PostMapping("/register")
+    @PreAuthorize("hasRole('ADMIN') and authentication.name == 'admin'")
+    public Result register(@RequestBody ElysiaUser elysiaUser) {
+        try {
+            return iUserService.registerWithUserDetails(elysiaUser);
+        } catch (Exception e) {
+            return Result.returnUnknown("99999999", ExceptionUtils.getStackTrace(e));
         }
     }
 
@@ -87,15 +111,6 @@ public class UserController {
             return Result.returnFail(e.getErrorCode(), e.getErrorInfo());
         } catch (ServiceUnknownException e) {
             return Result.returnUnknown(e.getErrorCode(), e.getErrorInfo());
-        } catch (Exception e) {
-            return Result.returnUnknown("99999999", ExceptionUtils.getStackTrace(e));
-        }
-    }
-
-    @PostMapping("/register")
-    public Result register(@RequestBody ElysiaUser elysiaUser) {
-        try {
-            return iUserService.registerWithUserDetails(elysiaUser);
         } catch (Exception e) {
             return Result.returnUnknown("99999999", ExceptionUtils.getStackTrace(e));
         }

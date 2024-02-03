@@ -4,6 +4,7 @@ import com.elysia.gate.manager.DBUserManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,10 +21,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
  * @Description: @ConditionalOnClass({EnableWebSecurity.class})当EnableWebSecurity这个类被加载到上下文当中
  * @Description: @EnableWebSecurity这个注解会在springboot中自动加载
  * @Description: EnableWebSecurity类自动加载是由spring-boot-starter-security依赖完成的
+ * @Description: @EnableMethodSecurity开启方法安全基于方法授权
  * @Version: 1.0
  */
 @Configuration // 配置类注解
 //@EnableWebSecurity // 开启SpringSecurity的自定义配置（在Springboot项目中可以省略此注解）
+@EnableMethodSecurity // 开启方法安全基于方法授权
 public class WebSecurityConfig {
     @Value("${spring.security.user.name}")
     private String username;
@@ -74,6 +77,9 @@ public class WebSecurityConfig {
         // 用户授权配置
         httpSecurity.authorizeRequests(
                 authorize -> authorize
+//                        .requestMatchers("/user/getList").hasAuthority("USER_QUERY")// 添加权限-资源访问授权
+//                        .requestMatchers("/user/register").hasAuthority("USER_ADD")// 添加权限-资源访问授权
+//                        .requestMatchers("/user/**").hasRole("ADMIN")// 添加权限-资源访问授权
                         .anyRequest()// 对所有请求开启授权保护
                         .authenticated()// 需要身份认证才能访问，已认证的请求会被自动授权
         );
@@ -99,6 +105,7 @@ public class WebSecurityConfig {
         // 用户未认证时的异常处理
         httpSecurity.exceptionHandling(exception -> {
             exception.authenticationEntryPoint(new MyAuthenticationEntryPoint());// 请求未认证的情况下，自定义的异常处理逻辑，默认是AuthenticationEntryPoint接口中的commence方法处理，这里通过自定义的MyAuthenticationEntryPoint类实现接口重写commence方法处理
+            exception.accessDeniedHandler(new MyAccessDeniedHandler());// 请求未授权的情况下，自定义的异常处理逻辑，默认是AccessDeniedHandler接口中的handle方法处理，这里通过自定义的MyAccessDeniedHandler类实现接口重写handle方法处理
         });
 
         // 跨域配置

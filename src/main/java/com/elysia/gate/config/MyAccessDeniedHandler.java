@@ -5,8 +5,8 @@ import com.elysia.common.constants.HttpStatusEnum;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,16 +16,16 @@ import java.util.Map;
  * @BelongsProject: elysia-gate
  * @BelongsPackage: com.elysia.gate.config
  * @Author: ElysiaKafka
- * @CreateTime: 2024-02-01  22:12:20
- * @Description: 登出成功处理类
+ * @CreateTime: 2024-02-02  11:58:59
+ * @Description: 自定义权限拒绝处理器
  * @Version: 1.0
  */
-public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
+public class MyAccessDeniedHandler implements AccessDeniedHandler {
     @Override
-    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         Map result = new HashMap();
-        result.put("code", HttpStatusEnum.OK.getCode());// 响应状态码200表示成功
-        result.put("message", "登出成功");// 响应信息
+        result.put("code", HttpStatusEnum.FORBIDDEN.getCode());// 响应状态码403拒绝未授权的访问
+        result.put("message", "没有权限");// 响应信息
 
         // 请求结果转换为json字符串
         String jsonResult = JSON.toJSONString(result);

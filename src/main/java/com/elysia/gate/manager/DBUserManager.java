@@ -93,17 +93,33 @@ public class DBUserManager implements UserDetailsManager, UserDetailsPasswordSer
         if (null == elysiaUser) {
             throw new UsernameNotFoundException(username + "用户不存在");
         } else {
-            Collection<GrantedAuthority> elysiaUserAuthorities = new ArrayList<>();
-            boolean isEnable = elysiaUser.getStatus() == 1 ? true : false;
-            return new User(
-                    elysiaUser.getUsername(),
-                    elysiaUser.getPassword(),
-                    isEnable,// 用户账号状态是否启用
-                    true,// 用户账号是否过期
-                    true,// 用户凭证是否过期
-                    true,// 用户是否未被锁定
-                    elysiaUserAuthorities
-            );
+//            Collection<GrantedAuthority> elysiaUserAuthorities = new ArrayList<>();
+//            elysiaUserAuthorities.add(new GrantedAuthority() {
+//                @Override
+//                public String getAuthority() {
+//                    return "USER_ADD";
+//                }
+//            });
+//            elysiaUserAuthorities.add(() -> "USER_QUERY");
+//            boolean isEnable = elysiaUser.getStatus() == 1 ? true : false;
+//            User user = new User(
+//                    elysiaUser.getUsername(),
+//                    elysiaUser.getPassword(),
+//                    isEnable,// 用户账号状态是否启用
+//                    true,// 用户账号是否过期
+//                    true,// 用户凭证是否过期
+//                    true,// 用户是否未被锁定
+//                    elysiaUserAuthorities
+//            );
+
+            UserDetails user = User.withUsername(elysiaUser.getUsername())
+                    .password(elysiaUser.getPassword())
+                    .disabled(elysiaUser.getStatus() != 1 ? true : false)// 用户是否可用
+                    .credentialsExpired(false)// 用户凭证是否过期
+                    .accountLocked(false)// 用户是否锁定
+                    .roles("USER")// 用户角色
+                    .build();
+            return user;
         }
     }
 }

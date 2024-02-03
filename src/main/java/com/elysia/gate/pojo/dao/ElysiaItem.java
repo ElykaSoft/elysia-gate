@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ElysiaItem extends BaseDao {
-    private String id;// 功能项id
+    private Long id;// 功能项id
     private String itemName;// 功能项名
     private Integer status;// 状态
     private String createUser;// 创建用户

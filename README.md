@@ -1,8 +1,11 @@
 # Elysia：spring-security + OAuth2学习项目
 
 ## 项目简介
-基于spring-boot 3.2.2版本的微服务项目，主要是学习spring-security + OAuth2.0安全框架
-基于spring-security + OAuth2安全框架，创建elysia项目工程的公共登录验证门户
+<p>基于spring-boot 3.2.2版本的微服务项目，主要是学习spring-security + OAuth2.0安全框架</p>
+<p>通过spring-security + OAuth2安全框架，创建elysia项目工程的公共登录验证门户</p>
+<p>项目名：elysia-gate</p>
+<p>主要实现功能：
+</p>
 
 ## 项目结构
 ```
