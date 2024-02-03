@@ -118,6 +118,7 @@ public class DBUserManager implements UserDetailsManager, UserDetailsPasswordSer
                     .credentialsExpired(false)// 用户凭证是否过期
                     .accountLocked(false)// 用户是否锁定
                     .roles("USER")// 用户角色
+                    .authorities("USER_SELECT","USER_ADD")// 用户权限
                     .build();
             return user;
         }
