@@ -43,7 +43,8 @@ public class UserController {
 //    private RestTemplate restTemplate;
 
     @GetMapping("/getList")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyAuthority('USER_SELECT')")
     public Result<List<ElysiaUser>> getList(String queryParams) {
         try {
             Map<String, Object> inputParams = new HashMap<>();
@@ -59,15 +60,16 @@ public class UserController {
     /**
      * @description: 用户注册
      * @description: @PreAuthorize注解表示在方法调用之前，先进行用户的角色权限校验
-     * @description: hasRole(' ADMIN ')表示当前用户角色必须是‘ADMIN’才能调用该方法
-     * @description: authentication.name='admin'表示当前用户账号必须是‘admin’才能调用该方法
+     * @description: hasRole('ADMIN')表示当前用户角色必须是‘ADMIN’才能调用该方法
+     * @description: authentication.name=='admin'表示当前用户账号必须是‘admin’才能调用该方法
+     * @description: hasAnyAuthority('USER_SELECT')表示当前用户必须有赋权'USER_SELECT'权限才可以调用该方法
      * @author: ElysiaKafka
      * @date: 2024/2/3 0:08
      * @param: elysiaUser
      * @return: com.elysia.common.pojo.common.Result
      **/
     @PostMapping("/register")
-    @PreAuthorize("hasRole('ADMIN') and authentication.name = 'admin'")
+    @PreAuthorize("hasRole('ADMIN') and authentication.name == 'admin'")
     public Result register(@RequestBody ElysiaUser elysiaUser) {
         try {
             return iUserService.registerWithUserDetails(elysiaUser);

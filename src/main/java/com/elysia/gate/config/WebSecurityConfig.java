@@ -21,6 +21,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
  * @Description: @ConditionalOnClass({EnableWebSecurity.class})当EnableWebSecurity这个类被加载到上下文当中
  * @Description: @EnableWebSecurity这个注解会在springboot中自动加载
  * @Description: EnableWebSecurity类自动加载是由spring-boot-starter-security依赖完成的
+ * @Description: @EnableMethodSecurity开启方法安全基于方法授权
  * @Version: 1.0
  */
 @Configuration // 配置类注解
