@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `elysia_user_info`;
 CREATE TABLE `elysia_user_info`
 (
-    `ID`           bigint(20) AUTO_INCREMENT                                     NOT NULL COMMENT '用户ID',
+    `ID`           bigint(20)                                                    NOT NULL COMMENT '用户ID',
     `FIRSTNAME`    varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL COMMENT '用户姓氏',
     `LASTNAME`     varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL COMMENT '用户姓名',
     `GENDER`       tinyint(4)                                                    NULL DEFAULT NULL COMMENT '性别',
@@ -20,7 +20,8 @@ CREATE TABLE `elysia_user_info`
     `UPDATE_DATE`  varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL COMMENT '更新日期',
     `UPDATE_TIME`  varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci   NULL DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB
-  CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_unicode_ci
-  ROW_FORMAT = Dynamic;
+) COMMENT "用户信息表"
+    ENGINE = InnoDB
+    CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    ROW_FORMAT = Dynamic;
