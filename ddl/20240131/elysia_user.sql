@@ -5,7 +5,6 @@ CREATE TABLE `elysia_user`
     `USERNAME`          varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL COMMENT '用户名',
     `PASSWORD`          varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户密码',
     `STATUS`            tinyint(4)                                                    NULL DEFAULT NULL COMMENT '用户账号状态',
-    `ROLE_ID`           varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL COMMENT '用户角色ID',
     `REGISTRATION_DATE` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL COMMENT '用户注册日期',
     `LAST_LOGIN_DATE`   varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL COMMENT '最后登录日期',
     `CREATE_USER`       varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL COMMENT '创建用户',
@@ -16,7 +15,8 @@ CREATE TABLE `elysia_user`
     `UPDATE_TIME`       varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci   NULL DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`ID`) USING BTREE,
     UNIQUE INDEX `idx_username_unique` (`USERNAME`)
-) ENGINE = InnoDB
-  CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_unicode_ci
-  ROW_FORMAT = Dynamic;
+) COMMENT "用户表"
+    ENGINE = InnoDB
+    CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    ROW_FORMAT = Dynamic;

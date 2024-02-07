@@ -1,5 +1,5 @@
 server:
-  port: 8990
+  port: 8080
   servlet:
     context-path: /elysia
 spring:
@@ -15,6 +15,12 @@ spring:
     user:
       name: asdf
       password: qwer
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: 9076ecee0a2ffe938b53
+            client-secret: 9e3339b7e56baea091deb19f41b14d7903b0b27d
 mybatis-plus:
   configuration:
 #    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
