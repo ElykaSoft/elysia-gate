@@ -6,7 +6,7 @@ spring:
   profiles:
     default: local
   datasource:
-    url: jdbc:mysql://${elysia.db.host}/elysia
+    url: jdbc:mysql://${elysia.db.host}/elysia_gate?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${elysia.db.username}
     password: ${elysia.db.password}
