@@ -30,7 +30,7 @@ public class ElysiaUserInfo extends BaseDao {
     /**
      * @description: 用户ID
      **/
-    @TableId(value = "id",type = IdType.AUTO)// 主键自增
+    @TableId(value = "id", type = IdType.AUTO)// 主键自增
     private Long id;
     /**
      * @description: 用户姓氏
@@ -47,7 +47,7 @@ public class ElysiaUserInfo extends BaseDao {
     /**
      * @description: 生日
      **/
-    private String birthdate;
+    private String birthday;
     /**
      * @description: 邮箱
      **/
@@ -55,7 +55,7 @@ public class ElysiaUserInfo extends BaseDao {
     /**
      * @description: 联系方式
      **/
-    private String phone;
+    private String telephone;
     /**
      * @description: 国家地区
      **/
