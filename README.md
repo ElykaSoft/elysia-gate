@@ -16,14 +16,13 @@
 ## OAuth2.0样例
 <p>这里使用GitHub的OAuth Apps功能，实现用户授权第三方登录功能。</p>
 <p>1、注册GitHub OAuth Apps</p>
-![打开设置](./src/main/resources/static/example/images/step1.png)![进入开发者设置](./src/main/resources/static/example/images/step2.png)
+<img align="center" src="./src/main/resources/static/example/images/step1.png" width="500" height="1000" />
+<img align="center" src="./src/main/resources/static/example/images/step2.png" width="500" height="1000" />
 <p>2、配置OAuth Apps</p>
-![注册新OAuth应用](./src/main/resources/static/example/images/step3.png)
-![填写信息完成注册](./src/main/resources/static/example/images/step4.png)
+<img align="center" src="./src/main/resources/static/example/images/step3.png" width="100%" height="800" />
+<img align="center" src="./src/main/resources/static/example/images/step4.png" width="100%" height="800" />
 <p>3、注册完成后获取ClientId和ClientSecret</p>
-Client Id：9076ecee0a2ffe938b53
-Client secrets：9e3339b7e56baea091deb19f41b14d7903b0b27d
-![记录信息](./src/main/resources/static/example/images/step5.png)
+<img style="margin-left: auto; margin-right: auto;" src="./src/main/resources/static/example/images/step5.png" width="100%" height="1500" />
 
 ## 项目结构
 ```
