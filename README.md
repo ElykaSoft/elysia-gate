@@ -22,8 +22,6 @@
 <img align="center" src="./src/main/resources/static/example/images/step3.png" width="100%" height="800" />
 <img align="center" src="./src/main/resources/static/example/images/step4.png" width="100%" height="800" />
 <p>3、注册完成后获取ClientId和ClientSecret</p>
-Client Id：9076ecee0a2ffe938b53
-Client secrets：9e3339b7e56baea091deb19f41b14d7903b0b27d
 <img style="margin-left: auto; margin-right: auto;" src="./src/main/resources/static/example/images/step5.png" width="100%" height="1500" />
 
 ## 项目结构
