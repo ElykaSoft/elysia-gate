@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.elysia</groupId>
     <artifactId>elysia-gate</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-RELEASE</version>
     <name>elysia-gate</name>
     <description>Security Center</description>
     <properties>
@@ -199,7 +199,7 @@
         <dependency>
             <groupId>com.elysia</groupId>
             <artifactId>elysia-common</artifactId>
-            <version>1.2.5-SNAPSHOT</version>
+            <version>2.0.0-RELEASE</version>
         </dependency>
     </dependencies>
 
